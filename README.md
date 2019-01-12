@@ -6,8 +6,8 @@ Project is built with:
 
 * [.NET Core 2.2](https://dotnet.github.io/)
 * [F#](https://fsharp.org)
-* [Canopy](http://fsprojects.github.io/Argu/tutorial.html) (F# wrapper for [Selenium](https://www.seleniumhq.org/))
-* [Argu](http://fsprojects.github.io/Argu/tutorial.html)
+* [Canopy](https://lefthandedgoat.github.io/canopy/) (F# wrapper for [Selenium](https://www.seleniumhq.org/))
+* [Argu](http://fsprojects.github.io/Argu/)
 
 Running NOL3 is done in 3 simple steps:
 
