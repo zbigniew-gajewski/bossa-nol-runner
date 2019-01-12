@@ -50,9 +50,10 @@ User name and password to Bossa.pl account can be provided:
 
 ## Usage
 
-When you are using this package in your project and want to run or debug your application from Visual Studio or from Visual Studio Code, remember to add a tag **CopyLocalLockFilesAssemblies** with **true** setting to **PropertyGroup** element:
+If you are using this package in your project and if you want to run or debug your application from your IDE (Visual Studio or from Visual Studio Code) remember to add the tag **CopyLocalLockFilesAssemblies** set to **true** to **PropertyGroup** element (see [Samples](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples)):
 
-```<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+```
+<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 ```
 
 This is because canopy library requires to have browser driver in the same location. An example project should look like this:
