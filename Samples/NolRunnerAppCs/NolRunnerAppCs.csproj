@@ -6,7 +6,7 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 <ItemGroup>
-    <PackageReference Include="BossaNolRunner" Version="1.0.119" />
+    <PackageReference Include="BossaNolRunner" Version="1.0.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.45.0" />      
     <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.141.0" />
     <PackageReference Include="Selenium.FireFox.WebDriver" Version="0.23.0" />
