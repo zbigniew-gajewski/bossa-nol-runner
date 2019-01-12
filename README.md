@@ -50,6 +50,30 @@ User name and password to Bossa.pl account can be provided:
 
 ## Usage
 
+When you are using this package in your project and want to run or debug your application from Visual Studio or from Visual Studio Code, remember to add a tag **CopyLocalLockFilesAssemblies** with **true** setting to **PropertyGroup** element:
+
+```<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+```
+
+This is because canopy library requires to have browser driver in the same location. An example project should look like this:
+
+```<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BossaNolRunner" Version="1.0.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.45.0" />
+  </ItemGroup>
+</Project>
+```
+
+
+
 Usage examples from F# or C# are in [Sample](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples) folder:
 
 * **[Sample/NolRunnerAppFs](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples/NolRunnerAppFs)** folder contains F# application using this package
