@@ -34,12 +34,19 @@ The package can run Chrome, FireFox or Internet Explorer browser by providing **
 * **--browser firefox** for running FireFox
 * **--browser ie** for running Internet Explorer
 
+**'--browser'** parameter is optionl, the default is **Chrome**.
+
 ## Credentials
 
 User name and password to Bossa.pl account can be provided:
 
 * as an application parameter: **--credentials [userName] [password]**
-* as an **bossaCredentials** environment variable separated by semicolon
+* as an **bossaCredentials** environment variable separated by semicolon:
+  
+  ![EnvironmentVariables](docs/assets/EnvironmentVariables.png)
+
+  ![BossaCredentials](docs/assets/BossaCredentials.png)
+
 
 ## Usage
 
@@ -49,18 +56,16 @@ Usage examples from F# or C# are in [Sample](https://github.com/zbigniew-gajewsk
 * **[Sample/NolRunnerAppFs](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples/NolRunnerAppCs)** folder contains C# application using this package
 
 After compilation from within corresponding folder (NolRUnnerAppFs or NoRunnerAppCs):
+  
   **dotnet build**
+
   the application can by run with parameters:
-  **dotnet run --browser chrome --credentials [username] [password]**
+
+  **dotnet  run   --browser  chrome   --credentials  [username]  [password]**
 
   ![Parameters](docs/assets/FsBossaNolRunnerExe.png)
   
-  If the parameter are not provided then ***user name*** and ***password*** will be taken from environment variable **'bossaCredentials'** :
-
-  ![EnvironmentVariables](docs/assets/EnvironmentVariables.png)
-  ![BossaCredentials](docs/assets/BossaCredentials.png)
-
-If there are no credentials provided as an application parameter nor stored in environment variable then the application will not run neither browser nor NOL3.
+  If the parameter are not provided then ***user name*** and ***password*** will be taken from environment variable **'bossaCredentials'**. If there are no credentials provided as an application parameter nor stored in environment variable then the application will not run neither browser nor NOL3.
 
 The package was tested using:
 
