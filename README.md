@@ -48,10 +48,10 @@ Usage examples from F# or C# are in [Sample](https://github.com/zbigniew-gajewsk
 * **[Sample/NolRunnerAppFs](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples/NolRunnerAppFs)** folder contains F# application using this package
 * **[Sample/NolRunnerAppFs](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples/NolRunnerAppCs)** folder contains C# application using this package
 
-After compilation from within:
- (***dotnet build***), the application should be used with parameters:
-  
-__dotnet run__ **--credentials [username] [password]**
+After compilation from within corresponding folder (NolRUnnerAppFs or NoRunnerAppCs):
+  **dotnet build**
+  the application can by run with parameters:
+  **dotnet run --browser chrome --credentials [username] [password]**
 
   ![Parameters](docs/assets/FsBossaNolRunnerExe.png)
   
@@ -64,11 +64,11 @@ If there are no credentials provided as an application parameter nor stored in e
 
 The package was tested using:
 
-* **Windows 10*** v.1809
-* **Chrome** v.71.0.3578.98
-* **FireFox** v.64.0.2
+* **Windows 10** 1809
+* **Chrome** 71.0.3578.98
+* **FireFox** 64.0.2
 * **Internet Explorer** 11
-* **NOL 3** v.3.1.15.191.I.7
+* **NOL 3** 3.1.15.191.I.7
 * [**VS2017 15.9.5**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
 
 *The package will not be actively maintained.*
