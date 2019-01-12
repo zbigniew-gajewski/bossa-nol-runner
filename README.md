@@ -1,6 +1,6 @@
 # fs-bossa-nol-runner
 
-The source code of the BossaNolRunner NuGet package which alows user automatically run **[NOL 3](http://bossa.pl/oferta/internet/pomoc/nol/)** application from .NET using **Chrome**, **FireFox** or **Internet Explorer** browser.
+The source code of the [BossaNolRunner](https://www.nuget.org/packages/BossaNolRunner/) NuGet package which alows user to automatically run **[NOL 3](http://bossa.pl/oferta/internet/pomoc/nol/)** application from .NET code using **Chrome**, **FireFox** or **Internet Explorer** browser.
 
 Project is built with:
 
