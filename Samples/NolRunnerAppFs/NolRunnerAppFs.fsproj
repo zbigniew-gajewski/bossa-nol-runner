@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="BossaNolRunner" Version="1.0.119" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.45.0" />      
+    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.141.0" />
+    <PackageReference Include="Selenium.FireFox.WebDriver" Version="0.23.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <RestoreSources>$(RestoreSources); ..\..\BossaNolRunner\bin\Debug; https://api.nuget.org/v3/index.json</RestoreSources>
+  </PropertyGroup>
+  <!-- <Target Name="CopyDrivers" AfterTargets="AfterBuild"> -->
+  <!-- <Copy SourceFiles="$(OutDir)Drivers\IEDriverServer.exe" DestinationFolder="$(OutDir)" OverwriteReadOnlyFiles="true" /> -->
+  <!-- <Exec Command="xcopy $(OutDir)Drivers\*.* $(OutDir) /s /y" />
+    <Exec Command="xcopy $(OutDir)bin\Debug\netstandard2.0\chromedriver.exe $(OutDir) /s /y" /> -->
+  <!-- </Target> -->
+</Project>

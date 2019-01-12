@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <!-- <AssemblyVersion>1.0.1.0</AssemblyVersion><FileVersion>1.0.1.0</FileVersion> -->
+    <Version>1.0.119</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Update="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="Argu" Version="5.2.0" />
+    <PackageReference Include="canopy" Version="2.1.0" />
+    <PackageReference Include=" Microsoft.Win32.Registry" Version="4.5.0" />
+   
+    <!-- <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.45.0" Pack="True" PackageCopyToOutput="True" />
+    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.141.0" Pack="True" PackageCopyToOutput="True" /> -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Lib/AppArguments.fs" />
+    <Compile Include="Lib/Types.fs" />
+    <Compile Include="Lib/Utils.fs" />
+    <Compile Include="Lib\Registry.fs" />
+    <Compile Include="Lib/NolRunner.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- <Content Include="Drivers/" Pack="Ture" PackageCopyToOutput="True" /> -->
+    <!-- <Content Include="bin\Debug\netstandard2.0\chromedriver.exe" Pack="Ture" PackageCopyToOutput="True" /> -->
+  </ItemGroup>
+
+</Project>
