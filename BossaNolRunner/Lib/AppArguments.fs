@@ -12,4 +12,4 @@ with
         member arg.Usage = 
             match arg with
             | Credentials _ -> "bossa.pl username and password."
-            | Browser _ -> "browser type: chorme|ie|firefox (default is chrome)"
+            | Browser _ -> "browser type: chorme|firefox|ie (default is chrome)"

@@ -48,13 +48,12 @@ namespace BossaNolRunner
             match browserStartMode with
             | BrowserStartMode.Chrome 
             | BrowserStartMode.Firefox 
-            | BrowserStartMode.IE -> 
+            | BrowserStartMode.IE ->
                 consoleWriteLine "Starting browser ... " ConsoleColor.Blue
                 start browserStartMode 
-                // | Firefox doesn't work at the moment sicne geckodriver runs only 32 bit FireFox version
             | _ ->
                 consoleWriteLine "Starting browser ... " ConsoleColor.Blue
-                start chrome // InternetExplorer, not Edge
+                start chrome
      
             pin FullScreen
             url "https://www.bossa.pl/bossa/login"
@@ -106,31 +105,35 @@ namespace BossaNolRunner
                 | LoginException, ex -> printError (String.Format("Error when login to bossa account!{0}{1}", Environment.NewLine, ex.ToString()))
                 | InitializingNolException, ex -> printError (String.Format("Error when initializing Nol 3!{0}{1}", Environment.NewLine, ex.ToString()))
 
+        
         let stopNol () = 
             Process.GetProcessesByName("NOL3") |> Array.iter (fun bossaNolProcess -> bossaNolProcess.Kill())
             setRegistryValue SYNCPORTSETKEY "0"
             quit()
- 
-        let startNol (argv : string[]) =
-
-            stopNol()
-
+         
+        let parseArgs (argv : string[]) =
             let errorHandler = ProcessExiter(colorizer = function ErrorCode.HelpText -> None | _ -> Some ConsoleColor.Red)    
             let parser = ArgumentParser.Create<CLIArguments>(programName = "dotnet run", errorHandler = errorHandler)
             let arguments = parser.ParseCommandLine argv   
             let username, password = arguments.GetResult(<@ Credentials @>, defaultValue = (String.Empty, String.Empty))
             let browser = arguments.GetResult(<@ Browser @>, defaultValue = "chrome")
-    
+            (browser, username, password)
+
+        let startNol (browser : string) (username : string) (password : string) =            
+            stopNol()            
             let browserStartMode =
-                match browser with
-                | "ie" -> BrowserStartMode.IE
+                match browser with              
                 | "chrome" -> BrowserStartMode.Chrome
                 | "firefox" -> BrowserStartMode.Firefox
+                | "ie" -> BrowserStartMode.IE
                 | _ -> BrowserStartMode.Chrome
-
             let credentialsFromArguments = 
                 if String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password) 
                 then None
-                else Some (username, password)
-
+                else Some (username, password)            
             runNolWithOptionalCredentials browserStartMode credentialsFromArguments
+         
+        let startNolWithArgs (argv : string[]) =                  
+            let browser, username, password = parseArgs argv
+            startNol browser username password
+            
