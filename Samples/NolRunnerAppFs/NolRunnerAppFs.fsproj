@@ -5,8 +5,8 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="BossaNolRunner" Version="1.0.2" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.46.0" />      
+    <PackageReference Include="BossaNolRunner" Version="1.0.3" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="72.0.3626.69" />    
     <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.141.5" />
     <PackageReference Include="Selenium.FireFox.WebDriver" Version="0.23.0" />
   </ItemGroup>
@@ -14,7 +14,7 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="4.6.1" />
+    <PackageReference Update="FSharp.Core" Version="4.6.2" />
   </ItemGroup>
   <PropertyGroup>
     <RestoreSources>$(RestoreSources); ..\..\BossaNolRunner\bin\Debug; https://api.nuget.org/v3/index.json</RestoreSources>
