@@ -68,12 +68,14 @@ This is because canopy dll requires to have browser driver in the same location.
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BossaNolRunner" Version="1.0.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.45.0" />
+    <PackageReference Include="BossaNolRunner" Version="1.0.5" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="77.0.3865.4000" />
+    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.0" />
+    <PackageReference Include="Selenium.FireFox.WebDriver" Version="0.24.0" />
   </ItemGroup>
+  
 </Project>
 ```
-
 
 Usage examples from F# or C# are in [Sample](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples) folder:
 
