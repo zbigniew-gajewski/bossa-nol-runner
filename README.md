@@ -97,8 +97,8 @@ After compilation from within corresponding folder (NolRUnnerAppFs or NoRunnerAp
 The package was tested using:
 
 * **Windows 10** 18362
-* **Chrome** 77.0.3865.90 (64-bit)
-* **FireFox** 69.0.2 (64-bit)
+* **Chrome** 77.0.3865.90
+* **FireFox** 69.0.2
 * **Internet Explorer** 11
 * **NOL 3** 3.1.15.231
 * [**VS2019 16.3.2**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
