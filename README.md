@@ -4,7 +4,7 @@ The source code of the [BossaNolRunner NuGet package](https://www.nuget.org/pack
 
 Project is built with:
 
-* [.NET Core 2.2](https://dotnet.github.io/)
+* [.NET Standard 2.1 / Core 3.0](https://dotnet.github.io/)
 * [F#](https://fsharp.org)
 * [Canopy](https://lefthandedgoat.github.io/canopy/) (F# wrapper for [Selenium](https://www.seleniumhq.org/))
 * [Argu](http://fsprojects.github.io/Argu/)
@@ -34,7 +34,7 @@ The package can run Chrome, FireFox or Internet Explorer browser by providing **
 * **--browser firefox** for running FireFox
 * **--browser ie** for running Internet Explorer
 
-**'--browser'** parameter is optional, the default is **Chrome**.
+**'--browser'** parameter is optionl, the default is **Chrome**.
 
 ## Credentials
 
@@ -58,7 +58,8 @@ If you are using this package in your project and if you want to run or debug yo
 
 This is because canopy dll requires to have browser driver in the same location. An example project should look like this:
 
-```<Project Sdk="Microsoft.NET.Sdk">
+```
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -74,7 +75,6 @@ This is because canopy dll requires to have browser driver in the same location.
 ```
 
 
-
 Usage examples from F# or C# are in [Sample](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples) folder:
 
 * **[Sample/NolRunnerAppFs](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples/NolRunnerAppFs)** folder contains F# application using this package
@@ -84,21 +84,21 @@ After compilation from within corresponding folder (NolRUnnerAppFs or NoRunnerAp
   
   **dotnet build**
 
-  the application can by run with parameters:
+  the application can be executed with parameters:
 
   **dotnet  run   --browser  chrome   --credentials  [username]  [password]**
 
   ![Parameters](docs/assets/FsBossaNolRunnerExe.png)
   
-  If the parameter are not provided then ***user name*** and ***password*** will be taken from environment variable **'bossaCredentials'**. If there are no credentials provided as an application parameter nor stored in environment variable then the application will not run neither browser nor NOL3.
+  If the credentials parameters are not provided then ***user name*** and ***password*** will be taken from environment variable **'bossaCredentials'**. If there are no credentials provided as an application parameter nor stored in environment variable then the application will not run neither browser nor NOL3.
 
 The package was tested using:
 
-* **Windows 10** 1809
-* **Chrome** 71.0.3578.98
-* **FireFox** 64.0.2
+* **Windows 10** 18362
+* **Chrome** 77.0.3865.90 (64-bit)
+* **FireFox** 69.0.2 (64-bit)
 * **Internet Explorer** 11
-* **NOL 3** 3.1.15.191.I.7
-* [**VS2017 15.9.5**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
+* **NOL 3** 3.1.15.231
+* [**VS2019 16.3.2**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
 
 *The package will not be actively maintained.*
