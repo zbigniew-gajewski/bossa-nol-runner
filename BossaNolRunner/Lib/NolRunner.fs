@@ -48,7 +48,7 @@ namespace BossaNolRunner
             match browserStartMode with
             | BrowserStartMode.Chrome 
             | BrowserStartMode.Firefox 
-            | BrowserStartMode.IE ->
+            | BrowserStartMode.IE ->           
                 consoleWriteLine "Starting browser ... " ConsoleColor.Blue
                 start browserStartMode 
             | _ ->

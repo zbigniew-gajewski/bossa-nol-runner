@@ -34,7 +34,7 @@ The package can run Chrome, FireFox or Internet Explorer browser by providing **
 * **--browser firefox** for running FireFox
 * **--browser ie** for running Internet Explorer
 
-**'--browser'** parameter is optionl, the default is **Chrome**.
+**'--browser'** parameter is optional, the default is **Chrome**.
 
 ## Credentials
 

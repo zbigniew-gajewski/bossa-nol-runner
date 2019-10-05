@@ -1,23 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="BossaNolRunner" Version="1.0.3" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="72.0.3626.69" />    
-    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.141.5" />
-    <PackageReference Include="Selenium.FireFox.WebDriver" Version="0.23.0" />
+    <PackageReference Include="BossaNolRunner" Version="1.0.5" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="77.0.3865.4000" />
+    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.0" />
+    <PackageReference Include="Selenium.FireFox.WebDriver" Version="0.24.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="4.6.2" />
+    <PackageReference Update="FSharp.Core" Version="4.7.0" />
   </ItemGroup>
   <PropertyGroup>
-    <RestoreSources>$(RestoreSources); ..\..\BossaNolRunner\bin\Debug; https://api.nuget.org/v3/index.json</RestoreSources>
+    <RestoreSources>$(RestoreSources); ..\..\BossaNolRunner\bin\Release; https://api.nuget.org/v3/index.json</RestoreSources>
   </PropertyGroup>
   <!-- <Target Name="CopyDrivers" AfterTargets="AfterBuild"> -->
   <!-- <Copy SourceFiles="$(OutDir)Drivers\IEDriverServer.exe" DestinationFolder="$(OutDir)" OverwriteReadOnlyFiles="true" /> -->
