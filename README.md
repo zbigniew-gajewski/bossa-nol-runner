@@ -1,10 +1,10 @@
 # fs-bossa-nol-runner
 
-The source code of the [BossaNolRunner NuGet package](https://www.nuget.org/packages/BossaNolRunner/) which alows user to automatically run [NOL 3](http://bossa.pl/oferta/internet/pomoc/nol/) application (via *Chrome*, *FireFox* or *Internet Explorer* browsers) from .NET code.
+The source code of the [BossaNolRunner NuGet package](https://www.nuget.org/packages/BossaNolRunner/) which alows user to run [NOL 3](http://bossa.pl/oferta/internet/pomoc/nol/) application automatically (via *Chrome*, *FireFox* or *Internet Explorer* browsers) from .NET code.
 
 Project is built with:
 
-* [.NET Standard 2.1 / Core 3.0](https://dotnet.github.io/)
+* [.NET Standard 2.1 / Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1/)
 * [F#](https://fsharp.org)
 * [Canopy](https://lefthandedgoat.github.io/canopy/) (F# wrapper for [Selenium](https://www.seleniumhq.org/))
 * [Argu](http://fsprojects.github.io/Argu/)
@@ -63,17 +63,15 @@ This is because canopy dll requires to have browser driver in the same location.
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="BossaNolRunner" Version="1.0.5" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="77.0.3865.4000" />
-    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.0" />
-    <PackageReference Include="Selenium.FireFox.WebDriver" Version="0.24.0" />
-  </ItemGroup>
-  
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="80.0.3987.10600" />
+    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.1" />
+    <PackageReference Include="Selenium.FireFox.WebDriver" Version="0.26.0" />
+  </ItemGroup> 
 </Project>
 ```
 
@@ -92,15 +90,15 @@ After compilation from within corresponding folder (NolRUnnerAppFs or NoRunnerAp
 
   ![Parameters](docs/assets/FsBossaNolRunnerExe.png)
   
-  If the credentials parameters are not provided then ***user name*** and ***password*** will be taken from environment variable **'bossaCredentials'**. If there are no credentials provided as an application parameter nor stored in environment variable then the application will not run neither browser nor NOL3.
+  If credentials parameters are not provided then ***user name*** and ***password*** will be taken from environment variable **'bossaCredentials'**. If there are no credentials provided as an application parameter nor stored in environment variable then the application will not run (neither browser nor NOL3).
 
 The package was tested using:
 
-* **Windows 10** 18362
-* **Chrome** 77.0.3865.90
-* **FireFox** 69.0.2
+* **Windows 10** 18363
+* **Chrome**  80.0.3987.122
+* **FireFox** 73.0.1
 * **Internet Explorer** 11
 * **NOL 3** 3.1.15.231
-* [**VS2019 16.3.2**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
+* [**VS2019 16.4.5**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
 
 *The package will not be actively maintained.*
