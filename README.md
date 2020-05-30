@@ -94,11 +94,11 @@ After compilation from within corresponding folder (NolRUnnerAppFs or NoRunnerAp
 
 The package was tested using:
 
-* **Windows 10** 18363
-* **Chrome**  80.0.3987.122
-* **FireFox** 73.0.1
+* **Windows 10** 1909 18363.836
+* **Chrome**  83.0.4103.61
+* **FireFox** 76.0.1
 * **Internet Explorer** 11
-* **NOL 3** 3.1.15.231
-* [**VS2019 16.4.5**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
+* **NOL 3** 3.1.15.237
+* [**VS2019 16.6.0**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
 
 *The package will not be actively maintained.*
