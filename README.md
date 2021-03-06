@@ -4,7 +4,7 @@ The source code of the [BossaNolRunner NuGet package](https://www.nuget.org/pack
 
 Project is built with:
 
-* [.NET Standard 2.1 / Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1/)
+* [.NET Standard 2.1 / .NET 5](https://dotnet.microsoft.com/download/dotnet-core/3.1/)
 * [F#](https://fsharp.org)
 * [Canopy](https://lefthandedgoat.github.io/canopy/) (F# wrapper for [Selenium](https://www.seleniumhq.org/))
 * [Argu](http://fsprojects.github.io/Argu/)
@@ -63,14 +63,14 @@ This is because canopy dll requires to have browser driver in the same location.
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="BossaNolRunner" Version="1.0.5" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="80.0.3987.10600" />
-    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.1" />
-    <PackageReference Include="Selenium.FireFox.WebDriver" Version="0.26.0" />
+    <PackageReference Include="BossaNolRunner" Version="1.0.7" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="89.0.4389.2300" />
+    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.1.2" />
+    <PackageReference Include="Selenium.FireFox.WebDriver" Version="0.27.0" />
   </ItemGroup> 
 </Project>
 ```
@@ -94,11 +94,11 @@ After compilation from within corresponding folder (NolRUnnerAppFs or NoRunnerAp
 
 The package was tested using:
 
-* **Windows 10** 1909 18363.836
-* **Chrome**  83.0.4103.61
-* **FireFox** 76.0.1
+* **Windows 10** 20H2 19042.844
+* **Chrome**  89.0.4389.82
+* **FireFox** 86.0
 * **Internet Explorer** 11
-* **NOL 3** 3.1.15.237
-* [**VS2019 16.6.0**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
+* **NOL 3** 3.1.15.244.I.7
+* [**VS2019 16.9.0**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
 
 *The package will not be actively maintained.*
