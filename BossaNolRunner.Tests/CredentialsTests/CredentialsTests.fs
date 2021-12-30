@@ -11,10 +11,6 @@ open BossaNolRunner.NolRunner
 
 module Specification = 
 
-    [<Property>]
-    let ``FsCheck infrastructure works``(_ : Credentials) =
-        true ==> true
-
     [<Fact>]
     let ``not empty user name and not empty password validation returns Success``() =
         let credentials = ("userName", "password")

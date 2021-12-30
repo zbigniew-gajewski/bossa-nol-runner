@@ -2,16 +2,16 @@ namespace BossaNolRunner
 
     module NolRunner = 
 
-        open canopy.classic
-        open canopy.types
         open System
         open System.Threading
+        open System.Threading.Tasks
         open Types
         open Utils
         open Argu
         open AppArguments
         open System.Diagnostics
         open Registry
+        open Microsoft.Playwright
 
         let validateEmptyCredentials credentials = 
             let username, password = credentials
@@ -44,43 +44,78 @@ namespace BossaNolRunner
             ||| 
             (getCredentialsFromEnvironmentVariables getVariables)
 
-        let startBrowser browserStartMode (credentials : Credentials)  =        
-            match browserStartMode with
-            | BrowserStartMode.Chrome 
-            | BrowserStartMode.Firefox 
-            | BrowserStartMode.IE ->           
-                consoleWriteLine "Starting browser ... " ConsoleColor.Blue
-                start browserStartMode 
-            | _ ->
-                consoleWriteLine "Starting browser ... " ConsoleColor.Blue
-                start chrome
-     
-            pin FullScreen
-            url "https://www.bossa.pl/bossa/login"
+        let web = 
+                Playwright.CreateAsync()
+                |> Async.AwaitTask
+                |> Async.RunSynchronously
+
+        let mutable browser = 
+            web.Chromium.LaunchAsync(BrowserTypeLaunchOptions(Headless = true))
+            |> Async.AwaitTask
+            |> Async.RunSynchronously
+
+        let startBrowser browserStartMode (credentials : Credentials) : (IPage * Credentials)  =
+            
+            consoleWriteLine "Starting browser ... " ConsoleColor.Blue
+            
+            let b =
+                match browserStartMode with
+                | "chrome" -> web.Chromium.LaunchAsync(BrowserTypeLaunchOptions(Headless = false))
+                | "firefox" -> web.Firefox.LaunchAsync(BrowserTypeLaunchOptions(Headless = false))
+                | "webkit" -> web.Webkit.LaunchAsync(BrowserTypeLaunchOptions(Headless = false))
+                | _ -> web.Chromium.LaunchAsync(BrowserTypeLaunchOptions(Headless = false))
+                |> Async.AwaitTask
+                |> Async.RunSynchronously 
+
+            browser.CloseAsync() |> Async.AwaitTask |> Async.RunSynchronously
+
+            browser <- b
+
+            let page = 
+                browser.NewPageAsync()
+                |> Async.AwaitTask
+                |> Async.RunSynchronously
+            
             consoleWriteLine "Browser started!" ConsoleColor.Green
-            credentials
-    
-        let login  (credentials : Credentials) =    
+
+            page, credentials
+
+
+
+        let login ((page : IPage), (credentials : Credentials)) : (IPage * Credentials) = 
+
             consoleWriteLine "Login to bossa.pl starting..." ConsoleColor.Blue
+
+            page.GotoAsync(@"https://www.bossa.pl/bossa/login") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+ 
             let username, password = credentials
-            let loginString = 
-                String.Format(" var f = document.forms.login; 
-                    f.LgnUsrNIK.value='{0}'; 
-                    f.LgnUsrPIN.value='{1}'; 
-                    f.LgnUsrPIN.focus(); ", username, password)
-            js loginString |> ignore
-            press enter
-            Thread.Sleep(TimeSpan.FromSeconds(3.0))
-            consoleWriteLine "Login to bossa.pl finished!" ConsoleColor.Green
-            username, password
+            page.FillAsync("input[name='login']", username) |> Async.AwaitTask |> Async.RunSynchronously
+            page.FillAsync("input[name='password']", password) |> Async.AwaitTask |> Async.RunSynchronously
+            page.ClickAsync("button[name='buttonLogin']") |> Async.AwaitTask |> Async.RunSynchronously
+            
+            consoleWriteLine "Login to bossa.pl successful!" ConsoleColor.Green
 
-        let initNol (credentials : Credentials) = 
+            page, credentials
+
+            // pin FullScreen
+            // url 
+         
+            //credentials
+    
+        let initNol ((page : IPage), (credentials : Credentials))  = 
             consoleWriteLine "Initializing Nol 3..." ConsoleColor.Blue
-            js @" parent.initNol();" |> ignore    
-            Thread.Sleep(TimeSpan.FromSeconds(5.0))
-            credentials
+            page.ClickAsync("id=skipPollButtonAntrd") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+            page.ClickAsync("id=confirmPreambleSkipAntrd") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+            page.ClickAsync("id=hora2") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+            page.EvaluateAsync<string>("javascript:parent.initNol();") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+            consoleWriteLine "Login to bossa.pl finished!" ConsoleColor.Green
+            consoleWriteLine "Nol 3 initialization finished." ConsoleColor.Blue
+            page, credentials
 
+        // *******************************************************
         // main execution path
+        // *******************************************************
+
         let runNolWithOptionalCredentials browser (credentials : Credentials Option) : unit =   
     
             let executionChain =         
@@ -109,7 +144,9 @@ namespace BossaNolRunner
         let stopNol () = 
             Process.GetProcessesByName("NOL3") |> Array.iter (fun bossaNolProcess -> bossaNolProcess.Kill())
             setRegistryValue SYNCPORTSETKEY "0"
-            quit()
+            Thread.Sleep(TimeSpan.FromSeconds(1.0))
+            Process.GetProcessesByName("NOL3") |> Array.iter (fun bossaNolProcess -> bossaNolProcess.Kill())
+            browser.CloseAsync() |> Async.AwaitTask |> Async.RunSynchronously
          
         let parseArgs (argv : string[]) =
             let errorHandler = ProcessExiter(colorizer = function ErrorCode.HelpText -> None | _ -> Some ConsoleColor.Red)    
@@ -121,19 +158,14 @@ namespace BossaNolRunner
 
         let startNol (browser : string) (username : string) (password : string) =            
             stopNol()            
-            let browserStartMode =
-                match browser with              
-                | "chrome" -> BrowserStartMode.Chrome
-                | "firefox" -> BrowserStartMode.Firefox
-                | "ie" -> BrowserStartMode.IE
-                | _ -> BrowserStartMode.Chrome
             let credentialsFromArguments = 
                 if String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password) 
                 then None
                 else Some (username, password)            
-            runNolWithOptionalCredentials browserStartMode credentialsFromArguments
+            runNolWithOptionalCredentials browser credentialsFromArguments
          
         let startNolWithArgs (argv : string[]) =                  
+            Microsoft.Playwright.Program.Main [|"install"|] |> ignore
             let browser, username, password = parseArgs argv
             startNol browser username password
             
