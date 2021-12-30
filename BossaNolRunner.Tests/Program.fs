@@ -1,5 +1,5 @@
 ﻿module Main
 
 [<EntryPoint>]
-let main argv = 0
+let Program argv = 0
 

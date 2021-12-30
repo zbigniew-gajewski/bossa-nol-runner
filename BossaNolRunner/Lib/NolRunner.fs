@@ -34,7 +34,7 @@ namespace BossaNolRunner
         let getCredentialsFromEnvironmentVariables getVariables (_ : Credentials Option)  =
             // For security reasons keep username and password for your bossa account in environment variable 'bossaCredentials':
             //   Variable: bossaCredentials
-            //   Value: user89098;tajneHaslo123 (user name first then password separated by semicolon ';')
+            //   Value: user89098;secretPassword123 (user name first then password separated by semicolon ';')
             consoleWriteLine "Getting credentials from Environment variables..." ConsoleColor.Blue
             let credentialsFromEnvironment = getVariables ()
             validateEmptyCredentials credentialsFromEnvironment
@@ -55,9 +55,7 @@ namespace BossaNolRunner
             |> Async.RunSynchronously
 
         let startBrowser browserStartMode (credentials : Credentials) : (IPage * Credentials)  =
-            
             consoleWriteLine "Starting browser ... " ConsoleColor.Blue
-            
             let b =
                 match browserStartMode with
                 | "chrome" -> web.Chromium.LaunchAsync(BrowserTypeLaunchOptions(Headless = false))
@@ -66,49 +64,33 @@ namespace BossaNolRunner
                 | _ -> web.Chromium.LaunchAsync(BrowserTypeLaunchOptions(Headless = false))
                 |> Async.AwaitTask
                 |> Async.RunSynchronously 
-
             browser.CloseAsync() |> Async.AwaitTask |> Async.RunSynchronously
-
             browser <- b
-
             let page = 
                 browser.NewPageAsync()
                 |> Async.AwaitTask
                 |> Async.RunSynchronously
-            
             consoleWriteLine "Browser started!" ConsoleColor.Green
-
             page, credentials
 
 
-
         let login ((page : IPage), (credentials : Credentials)) : (IPage * Credentials) = 
-
             consoleWriteLine "Login to bossa.pl starting..." ConsoleColor.Blue
-
-            page.GotoAsync(@"https://www.bossa.pl/bossa/login") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
- 
+            page.GotoAsync(@"https://online.bossa.pl/bossaapp/login") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
             let username, password = credentials
             page.FillAsync("input[name='login']", username) |> Async.AwaitTask |> Async.RunSynchronously
             page.FillAsync("input[name='password']", password) |> Async.AwaitTask |> Async.RunSynchronously
             page.ClickAsync("button[name='buttonLogin']") |> Async.AwaitTask |> Async.RunSynchronously
-            
             consoleWriteLine "Login to bossa.pl successful!" ConsoleColor.Green
-
             page, credentials
 
-            // pin FullScreen
-            // url 
-         
-            //credentials
     
-        let initNol ((page : IPage), (credentials : Credentials))  = 
+        let initNol ((page : IPage), (credentials : Credentials)) = 
             consoleWriteLine "Initializing Nol 3..." ConsoleColor.Blue
             page.ClickAsync("id=skipPollButtonAntrd") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
             page.ClickAsync("id=confirmPreambleSkipAntrd") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
             page.ClickAsync("id=hora2") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
             page.EvaluateAsync<string>("javascript:parent.initNol();") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
-            consoleWriteLine "Login to bossa.pl finished!" ConsoleColor.Green
             consoleWriteLine "Nol 3 initialization finished." ConsoleColor.Blue
             page, credentials
 
