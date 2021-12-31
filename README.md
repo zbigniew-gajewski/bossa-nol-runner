@@ -1,40 +1,33 @@
 # fs-bossa-nol-runner
 
-The source code of the [BossaNolRunner NuGet package](https://www.nuget.org/packages/BossaNolRunner/) which alows user to run [NOL 3](http://bossa.pl/oferta/internet/pomoc/nol/) application automatically (via *Chrome*, *FireFox* or *Internet Explorer* browsers) from .NET code.
+The source code of the [BossaNolRunner NuGet package](https://www.nuget.org/packages/BossaNolRunner/) which alows user to run [NOL 3](http://bossa.pl/oferta/internet/pomoc/nol/) application automatically using **Chrome** browser from .NET code.
 
-Project is built with:
+Project uses:
 
-* [.NET Standard 2.1 / .NET 5](https://dotnet.microsoft.com/download/dotnet-core/3.1/)
+* [.NET 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0/)
 * [F#](https://fsharp.org)
-* [Canopy](https://lefthandedgoat.github.io/canopy/) (F# wrapper for [Selenium](https://www.seleniumhq.org/))
+* [Playwright](https://playwright.dev/)
 * [Argu](http://fsprojects.github.io/Argu/)
 
-Running NOL3 is done in 3 simple steps:
+Running NOL3 is done (automatically) in 3 simple steps:
 
-* opening a browser (Chrome, FireFox or Internet Explorer)
-* login to [bossa.pl account](https://www.bossa.pl) using credentials provided as an application parameters or stored in environment variable
+* opening Chrome browser
+* login to [bossa.pl account](https://online.bossa.pl/bossaapp/login) using credentials provided as an application parameters or stored in environment variable
 * starting NOL 3
 
-## Browser Drivers
+## Prerequisites (Playwright and browser installation)
 
-The application which uses this package also needs browser driver (for Chrome, FireFox or Internet Explorer accordingly). Drivers can be:
+In order to make an application working it is necessary to install [Playwright CLI Tool](https://www.nuget.org/packages/Microsoft.Playwright.CLI/):
 
-* downloaded from [Selenium download page](https://www.seleniumhq.org/download/) and copied into execution folder of the final application
-* added as a .Net Core packages (see [Samples](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples))
+```ps
+dotnet tool install --global Microsoft.Playwright.CLI --version 1.2.2
+```
 
-In order to make Selenium driver working correctly, **Internet Explorer** requires all ***internet zones*** parameter (*'Internet'*, *'Local intranet'*, *'Trusted sites'*, *'Restricted sites'*) set with identical ***'Enable Protected Mode...'*** settings (checked prefered):
+Then using Playwright CLI it is necessary to install browser(s):
 
-![IeSettings](docs/assets/BrowserSettings.png)
-
-## Browser parameter
-
-The package can run Chrome, FireFox or Internet Explorer browser by providing **--browser** parameter:
-
-* **--browser chrome** for running Chrome
-* **--browser firefox** for running FireFox
-* **--browser ie** for running Internet Explorer
-
-**'--browser'** parameter is optionl, the default is **Chrome**.
+```ps
+playwright install
+```
 
 ## Credentials
 
@@ -47,58 +40,36 @@ User name and password to Bossa.pl account can be provided:
 
   ![BossaCredentials](docs/assets/BossaCredentials.png)
 
-
 ## Usage
-
-If you are using this package in your project and if you want to run or debug your application from your IDE (Visual Studio or from Visual Studio Code) remember to add the tag **CopyLocalLockFilesAssemblies** set to **true** to **PropertyGroup** element (see [Samples](https://github.com/zbigniew-gajewski/bossa-nol-runner/blob/master/Samples/NolRunnerAppCs/NolRunnerAppCs.csproj)):
-
-```
-<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-```
-
-This is because canopy dll requires to have browser driver in the same location. An example project should look like this:
-
-```
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="BossaNolRunner" Version="1.0.7" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="89.0.4389.2300" />
-    <PackageReference Include="Selenium.WebDriver.IEDriver" Version="3.150.1.2" />
-    <PackageReference Include="Selenium.FireFox.WebDriver" Version="0.27.0" />
-  </ItemGroup> 
-</Project>
-```
 
 Usage examples from F# or C# are in [Sample](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples) folder:
 
-* **[Sample/NolRunnerAppFs](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples/NolRunnerAppFs)** folder contains F# application using this package
-* **[Sample/NolRunnerAppFs](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples/NolRunnerAppCs)** folder contains C# application using this package
+* **[Sample/NolRunnerAppFs](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples/NolRunnerAppFs)** folder contains F# application
+* **[Sample/NolRunnerAppCs](https://github.com/zbigniew-gajewski/bossa-nol-runner/tree/master/Samples/NolRunnerAppCs)** folder contains C# application
 
 After compilation from within corresponding folder (NolRUnnerAppFs or NoRunnerAppCs):
   
-  **dotnet build**
+```ps
+dotnet build
+```
 
-  the application can be executed with parameters:
+then the application can be executed with parameters:
 
-  **dotnet  run   --browser  chrome   --credentials  [username]  [password]**
+```ps
+dotnet run --credentials [username] [password]
+```
 
-  ![Parameters](docs/assets/FsBossaNolRunnerExe.png)
+e.g.:
+
+![Parameters](docs/assets/FsBossaNolRunnerExe.png)
   
-  If credentials parameters are not provided then ***user name*** and ***password*** will be taken from environment variable **'bossaCredentials'**. If there are no credentials provided as an application parameter nor stored in environment variable then the application will not run (neither browser nor NOL3).
+If credentials parameters are not provided then ***user name*** and ***password*** will be taken from environment variable **'bossaCredentials'**. If there are no credentials provided as an application parameter nor stored in environment variable then the application will not run (neither browser nor NOL3).
 
 The package was tested using:
 
-* **Windows 10** 20H2 19042.844
-* **Chrome**  89.0.4389.82
-* **FireFox** 86.0
-* **Internet Explorer** 11
+* **Windows 10** 21H2 19044.1415
+* **Chrome**  96.0.4664.110
 * **NOL 3** 3.1.15.244.I.7
-* [**VS2019 16.9.0**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
+* [**VS2022 17.0.4**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
 
 *The package will not be actively maintained.*
