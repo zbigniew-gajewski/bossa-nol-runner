@@ -81,16 +81,18 @@ namespace BossaNolRunner
             page.FillAsync("input[name='login']", username) |> Async.AwaitTask |> Async.RunSynchronously
             page.FillAsync("input[name='password']", password) |> Async.AwaitTask |> Async.RunSynchronously
             page.ClickAsync("button[name='buttonLogin']") |> Async.AwaitTask |> Async.RunSynchronously
+            page.WaitForURLAsync("https://online.bossa.pl/bossa/desktop") |> Async.AwaitTask |> Async.RunSynchronously
             consoleWriteLine "Login to bossa.pl successful!" ConsoleColor.Green
             page, credentials
-
+            
     
         let initNol ((page : IPage), (credentials : Credentials)) = 
             consoleWriteLine "Initializing Nol 3..." ConsoleColor.Blue
-            page.ClickAsync("id=skipPollButtonAntrd") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
-            page.ClickAsync("id=confirmPreambleSkipAntrd") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+            //page.ClickAsync("id=skipPollButtonAntrd") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+            //page.ClickAsync("id=confirmPreambleSkipAntrd") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
             page.ClickAsync("id=hora2") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
-            page.EvaluateAsync<string>("javascript:parent.initNol();") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+            page.EvaluateAsync("javascript:insertLeftMenu(2);") |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+            page.FrameLocator("iframe[name=\"mainFrame\"]").GetByRole(AriaRole.Img).First.ClickAsync() |> Async.AwaitTask |> Async.RunSynchronously |> ignore
             consoleWriteLine "Nol 3 initialization finished." ConsoleColor.Blue
             page, credentials
 
