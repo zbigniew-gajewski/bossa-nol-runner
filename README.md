@@ -1,10 +1,10 @@
 # fs-bossa-nol-runner
 
-The source code of the [BossaNolRunner NuGet package](https://www.nuget.org/packages/BossaNolRunner/) which alows user to run [NOL 3](http://bossa.pl/oferta/internet/pomoc/nol/) application automatically using **Chrome** browser from .NET code.
+The source code of the [BossaNolRunner NuGet package](https://www.nuget.org/packages/BossaNolRunner/) which alows user to open [NOL 3](http://bossa.pl/oferta/internet/pomoc/nol/) application automatically using **Chrome** browser from .NET code.
 
 Project uses:
 
-* [.NET 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0/)
+* [.NET 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0/)
 * [F#](https://fsharp.org)
 * [Playwright](https://playwright.dev/)
 * [Argu](http://fsprojects.github.io/Argu/)
@@ -20,7 +20,7 @@ Running NOL3 is done (automatically) in 3 simple steps:
 In order to make an application working it is necessary to install [Playwright CLI Tool](https://www.nuget.org/packages/Microsoft.Playwright.CLI/):
 
 ```ps
-dotnet tool install --global Microsoft.Playwright.CLI --version 1.2.2
+dotnet tool install --global Microsoft.Playwright.CLI --version 1.2.3
 ```
 
 Then using Playwright CLI it is necessary to install browser(s):
@@ -67,9 +67,9 @@ If credentials parameters are not provided then ***user name*** and ***password*
 
 The package was tested using:
 
-* **Windows 10** 21H2 19044.1415
-* **Chrome**  96.0.4664.110
-* **NOL 3** 3.1.15.244.I.7
-* [**VS2022 17.0.4**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
+* **Windows 10** 22H2 19045.2251
+* **Chrome**  107.0.5304.107
+* **NOL 3** 3.1.15.251.I.7
+* [**VS2022 17.5.0 Preview 1.0**](https://www.visualstudio.com/pl/downloads) (with F# Desktop Components)
 
 *The package will not be actively maintained.*
