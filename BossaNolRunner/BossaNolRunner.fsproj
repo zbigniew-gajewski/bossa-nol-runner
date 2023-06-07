@@ -4,14 +4,14 @@
     <TargetFramework>net7.0</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <!-- <AssemblyVersion>1.0.1.0</AssemblyVersion><FileVersion>1.0.1.0</FileVersion> -->
-    <Version>1.0.21</Version>
+    <Version>1.0.22</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="7.0.0" />
+    <PackageReference Update="FSharp.Core" Version="7.0.300" />
     <PackageReference Update="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Argu" Version="6.1.1" />
-    <PackageReference Include="Microsoft.Playwright" Version="1.27.2" />
+    <PackageReference Include="Microsoft.Playwright" Version="1.34.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
 
     <!-- <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.45.0" Pack="True" PackageCopyToOutput="True" />

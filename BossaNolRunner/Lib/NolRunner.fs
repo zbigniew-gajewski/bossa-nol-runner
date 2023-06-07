@@ -12,6 +12,7 @@ namespace BossaNolRunner
         open System.Diagnostics
         open Registry
         open Microsoft.Playwright
+        open System.Text.RegularExpressions
 
         let validateEmptyCredentials credentials = 
             let username, password = credentials
@@ -81,10 +82,22 @@ namespace BossaNolRunner
             page.FillAsync("input[name='login']", username) |> Async.AwaitTask |> Async.RunSynchronously
             page.FillAsync("input[name='password']", password) |> Async.AwaitTask |> Async.RunSynchronously
             page.ClickAsync("button[name='buttonLogin']") |> Async.AwaitTask |> Async.RunSynchronously
-            page.WaitForURLAsync("https://online.bossa.pl/bossa/desktop") |> Async.AwaitTask |> Async.RunSynchronously
-            consoleWriteLine "Login to bossa.pl successful!" ConsoleColor.Green
-            page, credentials
             
+            // Comms
+            let pageGetByRoleOptions= new PageGetByRoleOptions()
+            pageGetByRoleOptions.NameRegex = new Regex("Dalej", RegexOptions.IgnoreCase)
+            
+            let mutable continueLooping = true
+            while continueLooping do
+                let dalejButton = page.GetByRole(AriaRole.Button, pageGetByRoleOptions)
+                if dalejButton = null then
+                    continueLooping <- false
+                else
+                    dalejButton.ClickAsync() |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+
+            page.WaitForURLAsync("https://online.bossa.pl/bossa/desktop") |> Async.AwaitTask |> Async.RunSynchronously 
+            consoleWriteLine "Login to bossa.pl successful!" ConsoleColor.Green
+            page, credentials            
     
         let initNol ((page : IPage), (credentials : Credentials)) = 
             consoleWriteLine "Initializing Nol 3..." ConsoleColor.Blue
