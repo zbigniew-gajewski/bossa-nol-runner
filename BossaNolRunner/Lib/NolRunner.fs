@@ -84,18 +84,18 @@ namespace BossaNolRunner
             page.ClickAsync("button[name='buttonLogin']") |> Async.AwaitTask |> Async.RunSynchronously
             
             // Comms from Bossa
-            // let mutable continueLooping = true
-            // while continueLooping do
-            //     try
-            //         let pageGetByRoleOptions = new PageGetByRoleOptions()
-            //         pageGetByRoleOptions.Name <-"Dalej"
-            //         let dalejButton = page.GetByRole(AriaRole.Button, pageGetByRoleOptions)
-            //         if dalejButton = null then
-            //             continueLooping <- false
-            //         else
-            //             dalejButton.ClickAsync() |> Async.AwaitTask |> Async.RunSynchronously |> ignore
-            //     with 
-            //         _ -> continueLooping <- false
+            let mutable continueLooping = true
+            while continueLooping do
+                try
+                    let pageGetByRoleOptions = PageGetByRoleOptions()
+                    pageGetByRoleOptions.Name <-"Dalej"
+                    let dalejButton = page.GetByRole(AriaRole.Button, pageGetByRoleOptions)
+                    if  not (dalejButton.IsVisibleAsync() |> Async.AwaitTask |> Async.RunSynchronously) then
+                        continueLooping <- false
+                    else
+                        dalejButton.ClickAsync() |> Async.AwaitTask |> Async.RunSynchronously |> ignore
+                with  
+                    e -> continueLooping <- false
 
             page.WaitForURLAsync("https://online.bossa.pl/bossa/desktop") |> Async.AwaitTask |> Async.RunSynchronously 
             consoleWriteLine "Login to bossa.pl successful!" ConsoleColor.Green

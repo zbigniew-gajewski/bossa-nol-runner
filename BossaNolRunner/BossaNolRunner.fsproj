@@ -3,12 +3,17 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+<!--    <OutputType>Exe</OutputType>-->
+    <OutputType>Library</OutputType>
+    <GenerateProgramFile>false</GenerateProgramFile>
+    
     <!-- <AssemblyVersion>1.0.1.0</AssemblyVersion><FileVersion>1.0.1.0</FileVersion> -->
-    <Version>1.0.24</Version>
+    <Version>1.0.25</Version>
   </PropertyGroup>
 
+
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="7.0.300" />
     <PackageReference Update="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Argu" Version="6.1.1" />
     <PackageReference Include="Microsoft.Playwright" Version="1.34.0" />
@@ -24,6 +29,7 @@
     <Compile Include="Lib/Utils.fs" />
     <Compile Include="Lib\Registry.fs" />
     <Compile Include="Lib/NolRunner.fs" />
+<!--    <Compile Include="Lib\Program.fs" />-->
   </ItemGroup>
 
   <ItemGroup>
